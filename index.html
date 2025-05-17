@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code-Red-Dashbroad/Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <div class="shapes-container">
+        <div class="shape circle"></div>
+        <div class="shape star">
+            <div class="star-inner"></div>
+        </div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape star">
+            <div class="star-inner"></div>
+        </div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+        <div class="shape circle"></div>
+        <div class="shape star">
+            <div class="star-inner"></div>
+        </div>
+        <div class="shape square"></div>
+        <div class="shape triangle"></div>
+    </div>
+    <div class="grid-container">
+        <div class="nav-wrapper">
+            <div class="nav-left">
+                <div class="logo-wrapper">
+                    <img src="1.png" alt="Code Red Logo" class="logo">
+                </div>
+            </div>
+            <div class="nav-right">
+                <div class="item3">
+                    <ul class="horizontal-menu">
+                        <li>
+                            <a href="#" class="home-link">
+                                <i class="fa fa-home home-icon"></i>
+                                Home
+                            </a>
+                        </li>
+                        <li>Team</li>
+                        <li>About-Us</li>
+                        <li class="has-dropdown">
+                            NGINX
+                            <ul class="dropdown">
+                                <li>Dashboard</li>
+                                <li>Global-Server-Status</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item4">
+                    <a href="#" class="accessibility-link">
+                        <i class="fa fa-universal-access"></i>
+                    </a>
+                    <ul class="accessibility-menu" id="accessibility-menu">
+                        <li><button id="increase-text">Increase Text</button></li>
+                        <li><button id="decrease-text">Decrease Text</button></li>
+                        <li><button id="grayscale">Grayscale</button></li>
+                        <li><button id="high-contrast">High Contrast</button></li>
+                        <li><button id="negative-contrast">Negative Contrast</button></li>
+                        <li><button id="light-background">Light Background</button></li>
+                        <li><button id="links-underline">Links Underline</button></li>
+                        <li><button id="readable-font">Readable Font</button></li>
+                        <li><button id="reset">Reset</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="title-wrapper">
+                <h1 class="title-first">Code-Red   </h1>
+                <h1 class="title-second">Dashboard  </h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accessibilityLink = document.querySelector('.accessibility-link');
+            const accessibilityMenu = document.getElementById('accessibility-menu');
+            
+            // Toggle menu on click
+            accessibilityLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                accessibilityMenu.classList.toggle('show');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.item4')) {
+                    accessibilityMenu.classList.remove('show');
+                }
+            });
+
+            // Create a container for main content if it doesn't exist
+            const mainContent = document.createElement('div');
+            mainContent.id = 'main-content';
+            
+            // Move all content except the navigation into the main content div
+            const container = document.querySelector('.container');
+            if (container) {
+                container.parentNode.insertBefore(mainContent, container);
+                mainContent.appendChild(container);
+            }
+
+            // Store original styles
+            const originalStyles = {
+                fontSize: window.getComputedStyle(mainContent).fontSize || '16px',
+                filter: document.documentElement.style.filter,
+                backgroundColor: document.documentElement.style.backgroundColor,
+                color: document.documentElement.style.color
+            };
+
+            // Accessibility functions
+            document.getElementById('increase-text').addEventListener('click', function() {
+                const mainContent = document.getElementById('main-content');
+                const currentSize = parseInt(window.getComputedStyle(mainContent).fontSize) || 16;
+                mainContent.style.fontSize = (currentSize + 2) + 'px';
+            });
+            
+            document.getElementById('decrease-text').addEventListener('click', function() {
+                const mainContent = document.getElementById('main-content');
+                const currentSize = parseInt(window.getComputedStyle(mainContent).fontSize) || 16;
+                if (currentSize > 12) {
+                    mainContent.style.fontSize = (currentSize - 2) + 'px';
+                }
+            });
+            
+            document.getElementById('grayscale').addEventListener('click', function() {
+                document.documentElement.style.filter = 'grayscale(100%)';
+            });
+            
+            document.getElementById('high-contrast').addEventListener('click', function() {
+                document.documentElement.style.backgroundColor = '#000000';
+                document.documentElement.style.color = '#ffffff';
+            });
+            
+            document.getElementById('negative-contrast').addEventListener('click', function() {
+                document.documentElement.style.backgroundColor = '#000000';
+                document.documentElement.style.color = '#ffff00';
+            });
+            
+            document.getElementById('light-background').addEventListener('click', function() {
+                document.documentElement.style.backgroundColor = '#ffffff';
+                document.documentElement.style.color = '#000000';
+            });
+            
+            document.getElementById('links-underline').addEventListener('click', function() {
+                const links = document.getElementsByTagName('a');
+                for (let link of links) {
+                    if (link.style.textDecoration === 'underline') {
+                        link.style.textDecoration = 'none';
+                    } else {
+                        link.style.textDecoration = 'underline';
+                    }
+                }
+            });
+            
+            document.getElementById('readable-font').addEventListener('click', function() {
+                document.body.classList.toggle('dyslexia-font');
+            });
+            
+            document.getElementById('reset').addEventListener('click', function() {
+                // Reset font size
+                const mainContent = document.getElementById('main-content');
+                mainContent.style.fontSize = originalStyles.fontSize;
+                
+                // Reset filters
+                document.documentElement.style.filter = originalStyles.filter;
+                
+                // Reset colors
+                document.documentElement.style.backgroundColor = '';
+                document.documentElement.style.color = '';
+                
+                // Reset link underlines
+                const links = document.getElementsByTagName('a');
+                for (let link of links) {
+                    link.style.textDecoration = '';
+                }
+                
+                // Reset font
+                document.body.classList.remove('dyslexia-font');
+                
+                // Close the accessibility menu
+                accessibilityMenu.classList.remove('show');
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+
+</body>
+</html>
+
